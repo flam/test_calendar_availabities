@@ -6,6 +6,8 @@
 
 # Ignore bundler config.
 /.bundle
+# Avoid mixing local dependencies between all projects (each project have their own gems & versions)
+/.vendor
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
