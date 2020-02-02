@@ -26,4 +26,6 @@ en:
       event:
         starts_at: Beginning of the event
         ends_at: End of the event
-
+  time:
+    formats:
+      fr: "%d/%m/%Y %Hh%M"

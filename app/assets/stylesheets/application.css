@@ -59,7 +59,7 @@ body {
     text-decoration: none;
 }
 
-input[type="date"] {
+input[type="date"], input[type="datetime-local"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -77,8 +77,33 @@ label.required:after {
   content: " *"
 }
 
-.field_with_errors input {
-  border-color: red;
+#notice {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  background-color: #dff0d8;
+  color: #468847;
+}
+
+#error_explanation {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  background-color: #f2dede;
+  color: #c31d1d;
+}
+  
+#error_explanation ul {
+  list-style: none;
+  margin: 0;
+}
+
+.field_with_errors label {
+  color: #d9534f;
+}
+
+.field_with_errors select, .field_with_errors input {
+  border-color: #d9534f;
 }
 
 .pill {
@@ -94,4 +119,8 @@ label.required:after {
 .color-orange {
   background-color: #FBD38D;
   color: #7B341E;
+}
+
+.even {
+  background-color: #efefef;
 }

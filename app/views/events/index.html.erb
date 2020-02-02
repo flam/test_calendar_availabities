@@ -10,6 +10,10 @@
   <h3 class="title">Create new event</h3>
   <p class="description"> You can add any required data to play within the app and ensure everything is ok</p>
   <%= form_with model: @event do |form| %>
+    <%= form_errors_for @event %>
+    <% if flash[:notice].present? %>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end %>
     <fieldset>
       <div class="row">
         <div class="column">
@@ -20,11 +24,11 @@
       <div class="row">
         <div class="column">
           <%= form.label :starts_at, class: "required" %>
-          <%= form.date_field :starts_at, required: true %>
+          <%= form.datetime_field :starts_at, required: true %>
         </div>
         <div class="column">
           <%= form.label :ends_at, class: "required" %>
-          <%= form.date_field :ends_at, required: true %>
+          <%= form.datetime_field :ends_at, required: true %>
         </div>
       </div>
       <div class="row">
@@ -36,19 +40,27 @@
     </fieldset>
     <%= form.submit "Create new event" %>
   <% end %>
-  <h3 id="#level-2" class="title">2 - Next 2 months events</h3>
+  <h3 id="level-2" class="title">2 - Next 2 months events</h3>
   <p class="description">
     You have here a list of events. You now need to change it to show them grouped by month and year.</br>
     List all existing events (both <code>opening</code> and <code>appointment</code>) grouped by month and year.
   </p>
-  <ul>
-    <% if @recent_events.size.positive? %>
+  <h4><u>List of recent events :</u></h4>
+  <p>
+    <% if @recent_events.any? %>
       <%= render @recent_events %>
     <% else %>
-      <li>No recent events found</li>
+      <div>No recent events found</div>
     <% end %>
-  </ul>
-  <h3 class="title">3 - Find availabilities</h3>
+  </p>
+
+  <h4><u>List of next 2 months events group by month and year :</u></h4>
+  <% @next_months_events.each do |date, events| %>
+    <h5><strong><%= date %></strong></h5>
+    <p><%= render events %></p>
+  <% end %>
+
+  <h3 id="level-3" class="title">3 - Find availabilities</h3>
   <p class="description">
     Show a list of timings where we can book an event for the given date.
     Hook it on the result of the <code>Event.availabilities</code> You've implemented before

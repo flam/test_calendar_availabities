@@ -3,8 +3,8 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
 
   def setup
-    @opening_event      = Event.new kind: :opening, starts_at: DateTime.parse('2014-08-04 09:30'), ends_at: DateTime.parse('2014-08-04 12:30'), weekly_recurring: true
-    @appointment_event  = Event.new kind: :appointment, starts_at: DateTime.parse('2014-08-11 10:30'), ends_at: DateTime.parse('2014-08-11 11:30')
+    @opening_event     = Event.new kind: :opening, starts_at: DateTime.parse('2014-08-04 09:30'), ends_at: DateTime.parse('2014-08-04 12:30'), weekly_recurring: true
+    @appointment_event = Event.new kind: :appointment, starts_at: DateTime.parse('2014-08-11 10:30'), ends_at: DateTime.parse('2014-08-11 11:30')
   end
 
   test 'valid event' do
@@ -37,6 +37,15 @@ class EventTest < ActiveSupport::TestCase
     @opening_event.ends_at = @opening_event.starts_at
     refute @opening_event.valid?
     assert @opening_event.errors[:ends_at].include?('must be after starts_at')
+  end
+
+  test '#half_hour_step_for_datetime' do
+    @opening_event.starts_at = DateTime.parse('2014-08-04 09:15')
+    @opening_event.ends_at   = DateTime.parse('2014-08-04 12:48')
+    
+    refute @opening_event.valid?
+    assert @opening_event.errors[:starts_at].include?('minutes must be 00 or 30')
+    assert @opening_event.errors[:ends_at].include?('minutes must be 00 or 30')
   end
 
   test '#available_opening invalid appointment without existed opening => weekly_recurring event' do
