@@ -41,8 +41,8 @@ class Event < ActiveRecord::Base
       events.each do |e|
         start_time  = e.starts_at.wday == date.wday ? e.starts_at : date.beginning_of_day
         end_time    = e.ends_at.wday == date.wday ? e.ends_at : e.starts_at.end_of_day
-        
-        while start_time < end_time
+
+        while start_time < end_time do
           slots << start_time
           start_time += 30.minutes
         end
@@ -87,7 +87,7 @@ class Event < ActiveRecord::Base
     unq_events  = Event.opening.between_dates(starts_at, ends_at)
     rec_events  = Event.opening.weekly_recurring.starts_at_wday_eq(starts_at).starts_at_time_lteq(starts_at)
     res         = []
-    
+
     (unq_events + rec_events).uniq.each { |e| res << e if (ends_at - starts_at) <= (e.ends_at - e.starts_at) }
     errors.add(:base, 'Must have opening events slots to create appointment.') if res.empty?
   end
