@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
 
   # Return a week slots availabilities by date
   def self.availabilities date
-    date ||= DateTime.now
+    date ||= Date.today
     res = []
 
     (date..(date + 6.days)).each do |d|

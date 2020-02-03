@@ -15,6 +15,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def find_availabilities
+    @event_date = params[:event_date].blank? ? Date.today : Date.parse(params[:event_date])
+    @availabilities = Event.availabilities @event_date
+  end
+
   private
 
   def events_list

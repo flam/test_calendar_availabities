@@ -22,4 +22,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil assigns(:recent_events)
     assert_not_nil assigns(:next_months_events)
   end
+
+  test 'get find_availabilities' do
+    get find_availabilities_events_url
+
+    assert_not_nil assigns(:event_date)
+    assert_not_nil assigns(:availabilities)
+  end
 end

@@ -65,7 +65,7 @@
     Show a list of timings where we can book an event for the given date.
     Hook it on the result of the <code>Event.availabilities</code> You've implemented before
   </p>
-  <%= form_with url: find_availabilities_events_path do |form| %>
+  <%= form_with url: find_availabilities_events_path, method: :get do |form| %>
     <fieldset>
       <%= form.label :event_date %>
       <%= form.date_field :event_date %>

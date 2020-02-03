@@ -1,0 +1,25 @@
+<section class="events container">
+  <h3 id="level-3" class="title">3 - Find availabilities</h3>
+  <p class="description">
+    Show a list of timings where we can book an event for the given date.
+    Hook it on the result of the <code>Event.availabilities</code> You've implemented before
+  </p>
+  <%= form_with url: find_availabilities_events_path, method: :get do |form| %>
+    <fieldset>
+      <%= form.label :event_date %>
+      <%= form.date_field :event_date, value: @event_date %>
+    </fieldset>
+    <%= form.submit "Find availabilities" %>
+  <% end %>
+
+  <% @availabilities.each do |availability| %>
+    <div class="row <%= cycle('odd', 'even') %>">
+      <div class="column column-20"><strong><%= availability[:date] %></strong></div>
+      <div class="column">
+        <% availability[:slots].each do |s| %>
+         <%= content_tag :span, s, class: 'pill color-green' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</section>
